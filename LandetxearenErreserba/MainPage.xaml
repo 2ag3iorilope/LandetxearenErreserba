@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="LandetxearenErreserba.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <ScrollView>
+        <Grid
+            Padding="30,0"
+            ColumnSpacing="25"
+            RowSpacing="25">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <CarouselView
+                Grid.Column="0"
+                HeightRequest="300"
+                IndicatorView="indicator"
+                ItemsSource="{Binding Images}"
+                Loop="False"
+                WidthRequest="200">
+                <CarouselView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Spacing="0" VerticalOptions="Center">
+                            <Image
+                                Aspect="AspectFill"
+                                HeightRequest="200"
+                                Source="{Binding}"
+                                WidthRequest="200" />
+                        </StackLayout>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
+
+            <IndicatorView
+                x:Name="indicator"
+                Grid.Column="0"
+                Margin="0,-20,0,150"
+                HorizontalOptions="Center"
+                IndicatorColor="Gray"
+                IndicatorSize="10"
+                IndicatorsShape="Circle"
+                SelectedIndicatorColor="White"
+                VerticalOptions="End" />
+
+            <StackLayout
+                Grid.Column="1"
+                Margin="0,10,0,0"
+                Spacing="10"
+                VerticalOptions="Start">
+
+                <Label
+                    FontAutoScalingEnabled="False"
+                    Text="Gehigarriak"
+                    VerticalOptions="Center" />
+
+                <StackLayout Orientation="Horizontal" Spacing="5">
+                    <CheckBox x:Name="checkBox1" CheckedChanged="OnCheckBoxCheckedChanged" />
+                    <Label Text="Aireportura trasladoa" VerticalOptions="Center" />
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal" Spacing="5">
+                    <CheckBox x:Name="checkBox2" CheckedChanged="OnCheckBoxCheckedChanged" />
+                    <Label Text="Bisita Gidatu Paketea" VerticalOptions="Center" />
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal" Spacing="5">
+                    <CheckBox x:Name="checkBox3" CheckedChanged="OnCheckBoxCheckedChanged" />
+                    <Label Text="Ume zaintza (Eguneko)" VerticalOptions="Center" />
+                </StackLayout>
+
+                <StackLayout Margin="0,10,0,0">
+                    <StackLayout Orientation="Horizontal" Spacing="5">
+                        <Label Text="Egonaldiaren Prezioa:" VerticalOptions="Center" />
+                        <Entry IsReadOnly="True" Text="300" />
+                        <Label Text="€" VerticalOptions="Center" />
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" Spacing="5">
+                        <Label Text="Gehigarrien Prezioa:" VerticalOptions="Center" />
+                        <Entry x:Name="entry2" IsReadOnly="True" />
+                        <Label Text="€" VerticalOptions="Center" />
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" Spacing="5">
+                        <Label Text="Guztira:" VerticalOptions="Center" />
+                        <Entry x:Name="totalEntry" IsReadOnly="True" />
+                        <Label Text="€" VerticalOptions="Center" />
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+
+            <StackLayout
+                Grid.Column="2"
+                Margin="0,10,0,0"
+                Spacing="10"
+                VerticalOptions="Start">
+
+                <DatePicker
+                    x:Name="datePicker"
+                    Date="{Binding SelectedDate, Mode=TwoWay}"
+                    DateSelected="OnDateChanged"
+                    Format="dd/MM/yyyy" />
+             
+
+                <Label HorizontalOptions="Center" Text="{Binding Source={x:Reference datePicker}, Path=Date, StringFormat='Aukeratutako Data: {0:dd/MM/yyyy}'}" />
+
+                <CollectionView
+                    x:Name="eventsCollectionView"
+                    Margin="0,10,0,0"
+                    ItemsSource="{Binding Events}"
+                    SelectionMode="Single">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout
+                                Margin="5"
+                                Padding="10"
+                                BackgroundColor="LightGray">
+                                <Label Text="{Binding Name}" />
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+        </Grid>
+    </ScrollView>
+</ContentPage>
