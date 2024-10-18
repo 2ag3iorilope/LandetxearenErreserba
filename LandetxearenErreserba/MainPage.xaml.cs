@@ -38,13 +38,20 @@ namespace LandetxearenErreserba
         }
 
         // Este es el método para manejar el evento DateChanged
-        private void OnDateChanged(object sender, DateChangedEventArgs e) // Cambiado a DateChangedEventArgs
+        private void OnDateChanged(object sender, DateChangedEventArgs e)
         {
             // Actualizar la propiedad SelectedDate
             SelectedDate = e.NewDate;
 
-            // Agregar la nueva fecha a la colección
-            Events.Add(new DateEvent { Name = SelectedDate.ToString("dd/MM/yyyy") });
+            // Limpiar la colección antes de agregar nuevas fechas
+            Events.Clear();
+
+            // Agregar las fechas desde SelectedDate hasta 7 días después
+            for (int i = 0; i <= 7; i++)
+            {
+                DateTime dateToAdd = SelectedDate.AddDays(i);
+                Events.Add(new DateEvent { Name = dateToAdd.ToString("dd/MM/yyyy") });
+            }
         }
 
         private void OnCheckBoxCheckedChanged(object sender, CheckedChangedEventArgs e)
